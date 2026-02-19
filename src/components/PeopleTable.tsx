@@ -1,7 +1,8 @@
 import React from 'react';
 import { Person } from '../types';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
+import { PersonLink } from './PersonLink';
 
 type Props = {
   people: Person[];
@@ -14,16 +15,8 @@ const getParentLink = (parentName: string | null, people: Person[]) => {
 
   const parent = people.find(p => p.name === parentName);
 
-  if (parent && parent.sex === 'f') {
-    return (
-      <Link to={`/people/${parent.slug}`} className="has-text-danger">
-        {parentName}
-      </Link>
-    );
-  }
-
   if (parent) {
-    return <Link to={`/people/${parent.slug}`}>{parentName}</Link>;
+    return <PersonLink person={parent} />;
   }
 
   return parentName;
@@ -59,14 +52,7 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
               })}
             >
               <td>
-                <Link
-                  to={`/people/${person.slug}`}
-                  className={classNames({
-                    'has-text-danger': person.sex === 'f',
-                  })}
-                >
-                  {person.name}
-                </Link>
+                <PersonLink person={person} />
               </td>
               <td>{person.sex}</td>
               <td>{person.born}</td>
