@@ -3,6 +3,7 @@ import { getPeople } from '../api';
 import { Person } from '../types';
 import { Loader } from './Loader';
 import { PeopleTable } from './PeopleTable';
+import { Outlet } from 'react-router-dom';
 
 export const PeoplePage = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -41,6 +42,8 @@ export const PeoplePage = () => {
           </div>
         </div>
       </div>
+
+      <Outlet />
     </>
   );
 };
